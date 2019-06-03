@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Ajout d\'un bien'  %}
+
+{% block body %}
+
+    <div class="container mt-4">
+
+        <h1>Ajouter le bien</h1>
+        {# Ceci c'est pour appeler son formulaire en gros {{ form(form) }} #}
+
+        {{ include('admin/property/form.html.twig', { form: form, button: 'Créer'}) }}
+
+    </div>
+
+{% endblock %}

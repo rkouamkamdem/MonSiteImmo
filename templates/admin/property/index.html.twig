@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain '' %}
+{% block title 'Gestion de biens'  %}
+
+{% block body %}
+
+    <div class="container mt-4">
+
+        <h1>Gérer les biens</h1>
+{# Ne pas rajouter les messages dans le bas.html.twig car cela oblige à charger les sessions sur toutes les pages de l'appli #}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                {% for property in properties %}
+                    <tr>
+                        <td>{{ property.title }}</td>
+                        <td>
+                            <a href="{{ path('admin.property.edit', { id: property.id}) }}" class="btn btn-primary">Editer</a>
+
+                           {# <a href="{{ path('admin.property.delete', {id: property.id}) }}" class="btn btn-danger">Supprimer</a> #}
+                        {# --- dessous nous allons faire un formulaire avec 1 token csrf pour la suppression -----   #}
+                        <form method="post" onsubmit="return confirm('Etes vous sur de vouloir supprimer ce bien? [id=={{ property.id }}]')" action="{{ path('admin.property.delete', { id: property.id}) }}" style="display: inline-block;">
+                            {# Le champs input ci-dessous permet de dire à Symfony que la methode à utiliser est 'DELETE' différente de la méthode POST#}
+                            <input type="hidden" name="_method" value="DELETE" >
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ property.id ) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <a href="{{ path('admin.property.create') }}" class="btn btn-info btn-block">Ajouter</a>
+                    </td>
+                </tr>
+            </tfoot>
+
+        </table>
+
+    </div>
+
+{% endblock %}

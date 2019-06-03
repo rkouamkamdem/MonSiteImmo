@@ -1,0 +1,17 @@
+body {
+	/*padding-bottom: 40px;
+    padding-top: 60px;*/
+    padding-bottom: 40px;
+    padding-top: 0;
+}
+
+.loading
+{   
+    float: right;
+    margin-right: 112px;
+    width: 30px;
+    height: 30px;
+    display: block;
+    background-image: url(../img/loading.gif);
+    /*border: 3px dotted black; */
+}

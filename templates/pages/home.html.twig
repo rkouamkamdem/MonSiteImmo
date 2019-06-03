@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Ma Page daccueil avec mes biens'  %}
+
+{% block body %}
+    <div class="jumbotron text-center">
+        <h1>Agence Roméo Immo</h1>
+        <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </p>
+    </div>
+
+   {#
+    <h1>Bienvenue ici mon vieux !!</h1>
+   {{ dump(latestProperties) }}
+   #}
+
+    <div class="container">
+        <h2>Les derniers biens</h2>
+        <div class="row flex">
+            {% for property in latestProperties %}
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{{ path('property.show',{ id: property.id, slug: property.slug}) }}">{{ property.title }}</a>
+                            </h5>
+                            <p class="card-text"> {{ property.city }} ({{ property.postalcode }})</p>
+                           {# <div class="text-primary">{{ property.price | number_format(0, '', ' ') }} €</div> #}
+                            {# ------------  Ci-dessous on utilise la fonction 'formattedPrice' qui n'est autre que le getformattedPrice() dans l'entité 'Property' ------- #}
+                            <div class="text-primary" style="font-weight: bold;size: 2rem;">{{ property.formattedPrice }} €</div>
+
+
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="agence_immo@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.4">
+    <root id="1"/>
+    <schema id="2" parent="1" name="agence_immo">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="am"/>
+    <schema id="4" parent="1" name="annonces"/>
+    <schema id="5" parent="1" name="ApiPlatformLinkdin"/>
+    <schema id="6" parent="1" name="api_platform"/>
+    <schema id="7" parent="1" name="atb"/>
+    <schema id="8" parent="1" name="blogApiFosRest"/>
+    <schema id="9" parent="1" name="bulletin"/>
+    <schema id="10" parent="1" name="caribbean"/>
+    <schema id="11" parent="1" name="chat"/>
+    <schema id="12" parent="1" name="employees"/>
+    <schema id="13" parent="1" name="gestion_de_stock"/>
+    <schema id="14" parent="1" name="gestion_produit"/>
+    <schema id="15" parent="1" name="information_schema"/>
+    <schema id="16" parent="1" name="inovatis"/>
+    <schema id="17" parent="1" name="magasin"/>
+    <schema id="18" parent="1" name="mydb"/>
+    <schema id="19" parent="1" name="mysql"/>
+    <schema id="20" parent="1" name="nas"/>
+    <schema id="21" parent="1" name="nasAuthDb"/>
+    <schema id="22" parent="1" name="nasAuthDb_0.4"/>
+    <schema id="23" parent="1" name="ndm_021"/>
+    <schema id="24" parent="1" name="nhm_019"/>
+    <schema id="25" parent="1" name="nhm_020"/>
+    <schema id="26" parent="1" name="nhm_021"/>
+    <schema id="27" parent="1" name="nhm_022"/>
+    <schema id="28" parent="1" name="nhm_sncf"/>
+    <schema id="29" parent="1" name="performance_schema"/>
+    <schema id="30" parent="1" name="piwik"/>
+    <schema id="31" parent="1" name="portailrh"/>
+    <schema id="32" parent="1" name="pradoblog"/>
+    <schema id="33" parent="1" name="qualiteCode"/>
+    <schema id="34" parent="1" name="rest-api"/>
+    <schema id="35" parent="1" name="rzikdb"/>
+    <schema id="36" parent="1" name="sailsTutoDb"/>
+    <schema id="37" parent="1" name="sainte"/>
+    <schema id="38" parent="1" name="sgv"/>
+    <schema id="39" parent="1" name="sncf"/>
+    <schema id="40" parent="1" name="sydec"/>
+    <schema id="41" parent="1" name="symfony"/>
+    <schema id="42" parent="1" name="symfony28"/>
+    <schema id="43" parent="1" name="symfony_demo"/>
+    <schema id="44" parent="1" name="sys"/>
+    <schema id="45" parent="1" name="taskManager"/>
+    <schema id="46" parent="1" name="tpJeuxCombat"/>
+    <schema id="47" parent="1" name="uploadFiles"/>
+    <schema id="48" parent="1" name="vauban"/>
+    <schema id="49" parent="1" name="vdp"/>
+    <schema id="50" parent="1" name="vinci"/>
+    <schema id="51" parent="1" name="wordpress"/>
+    <schema id="52" parent="1" name="ws_Database"/>
+    <schema id="53" parent="1" name="ztidar"/>
+    <table id="54" parent="2" name="migration_versions"/>
+    <table id="55" parent="2" name="property"/>
+    <column id="56" parent="54" name="version">
+      <Position>1</Position>
+      <DataType>varchar(14)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="57" parent="54" name="executed_at">
+      <Position>2</Position>
+      <Comment>(DC2Type:datetime_immutable)</Comment>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="58" parent="54" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>version</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="59" parent="55" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="60" parent="55" name="title">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="61" parent="55" name="description">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="62" parent="55" name="surface">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="63" parent="55" name="rooms">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="64" parent="55" name="floor">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="65" parent="55" name="city">
+      <Position>7</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="66" parent="55" name="address">
+      <Position>8</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="67" parent="55" name="postal_code">
+      <Position>9</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="68" parent="55" name="sold">
+      <Position>10</Position>
+      <DataType>tinyint(1)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="69" parent="55" name="created_at">
+      <Position>11</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="70" parent="55" name="price">
+      <Position>12</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="71" parent="55" name="heat">
+      <Position>13</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="72" parent="55" name="bedrooms">
+      <Position>14</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="73" parent="55" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+  </database-model>
+</dataSource>

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain '' %}
+{% block title 'Edition d\'un bien'  %}
+
+{% block body %}
+
+    <div class="container mt-4">
+
+        <h1>Editer le bien</h1>
+        {# Ceci c'est pour appeler son formulaire en gros {{ form(form) }} #}
+        {{ include('admin/property/form.html.twig', { form: form, button: 'Editer'}) }}
+    </div>
+
+{% endblock %}

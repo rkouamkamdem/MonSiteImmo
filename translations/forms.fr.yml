@@ -1,0 +1,11 @@
+City: Ville
+Rooms: Nombre de pièce
+Bedrooms: Nombre de chambre
+Price: Prix
+Title: Titre
+Address: Adresse
+Postal_code: Code postal
+Heat: Chauffage
+Sold: Vendu(Oui/Non)
+Floor: Etage
+Created at: Créé le

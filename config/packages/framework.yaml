@@ -15,3 +15,8 @@ framework:
     #fragments: true
     php_errors:
         log: true
+
+    #La config ci-dessous est mise en place pour indiquer qu'on va utiliser les annotations
+    #Pour les règles de validation des champs de formulaire
+    #Sinon la version originales est => validation: { enabled: true }
+    #validation: { enable_annotations: true }
