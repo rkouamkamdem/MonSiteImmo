@@ -7,14 +7,41 @@
         <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" />
         <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
         <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}" />
-        <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/popper.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
 
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="{{ path('home') }}">Mon agence</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link
+                    {% if current_menu is defined and current_menu == properties %} active {% endif %}"
+                   href="{{ path('property.index') }}" >Acheter
+                </a>
+            </li>
+        </ul>
+        {% if app.user %}
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="{{ path('logout') }}" class="nav-link">Se deconnecter</a>
+            </li>
+        </ul>
+        {% endif %}
+
+    </div>
+
+</nav>
+
         {% block body %}{% endblock %}
+
+        <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/popper.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
 
         {% block javascripts %}{% endblock %}
     </body>
