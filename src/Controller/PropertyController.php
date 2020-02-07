@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\SearchProperty;
+use App\Form\SearchPropertyType;
 use App\Repository\PropertyRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Property;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,44 +38,62 @@ class PropertyController extends AbstractController
      * @Route("/biens", name="property.index")
      * @return Response
      */
-    public function index()
+    public function index(PaginatorInterface $paginator, Request $request)
     {
-        /*
-        $property = new Property();
-        $property->setTitle("Mon premier bien");
-        $property->setDescription("Description de mon premier Appartement");
-        $property->setPrice(200000);
-        $property->setBedrooms(4);
-        $property->setSurface(80);
-        $property->setFloor(2);
-        $property->setAddress("23 Rue Labat");
-        $property->setPostalCode("75018");
-        $property->setCity("Paris");
-        $property->setSold(false);
-        //On ne met pas de setteur sur la date car à chaque instanciation de l'entité
-       // $property->setCreatedAt(\DateTime('now'));
-        $property->setHeat(50);
-        $property->setRooms(5);
+        //Ici on utilise le 'PaginatorInterface' pour faire la pagination avec la fonction paginate()
+        //En paramètre de la fonction paginate(), on met la requete qui est sensée renvoyée tous les biens,
+        //Le Numéro de la page, et le nombre de biens à afficher par page.
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($property);
-        $em->flush(); */
+        $pagination = $paginator->paginate(
+            $this->repository->findAllVisible(), //query NOT result
+            $request->query->getInt('page', 1), //page number
+            12 //limit per page
+        );
 
-        //Ici on va chercher le repo de son Entité, mais on peut aussi l'injecter par le controller
-        // $repository = $this->getDoctrine()->getRepository(Property::class);
-        // dump($repository);
+        //Création de l'entité qui va représenter notre recherche
+        $searchProperty = new SearchProperty();
+
+        //Créer un formulaire qui va contenir les champs relatifs à notre recherche
+        $formSearchProperty = $this->createForm(SearchPropertyType::class);
+        $formSearchProperty->handleRequest($request);
+
+        if( $formSearchProperty->isSubmitted() && $formSearchProperty->isValid() ) {
+
+            //On va chercher le prix maximal et le nbre de pièce minimum
+            $dataForm = $formSearchProperty->getData();
+//            dump($dataForm); die();
+            //$searchProperty->setNbPiece();
+           // $searchProperty->setPrix();
+            $pagination = $paginator->paginate(
+                $this->repository->searchAvailableProperty($dataForm->getPrix(),$dataForm->getNbPiece()), //query NOT result
+                $request->query->getInt('page', 1), //page number
+                12 //limit per page
+            );
+
+            /*
+                SearchProperty {#976 ▼
+                  -id: null
+                  -prix: 10500
+                  -nbPiece: 52
+                }
+            */
+        }
+
+        //On va gérer le traitement dans 1 controller
+
 
         //Je recupère l'ensemble de mes biens(Tous mes enregistrements properties)
         //$properties = $this->repository->findAll();
-        $property = $this->repository->findAllVisible();
-        $property[0]->setSold(true);
-        $this->em->flush();
-        dump($property);
+        $propertiesAvailable = $this->repository->findAllVisible();
+        //$property[0]->setSold(true);$this->em->flush();dump($property);
 
         return $this->render('property/index.html.twig', [
             'controller_name' => 'PropertyController',
-            'property' => $property,
-            'current_menu' => 'properties'
+            //'property' => $property,
+            'current_menu' => 'properties',
+            'propertiesAvailable' => $pagination, //$propertiesAvailable,
+            'pagination' => $pagination,
+            'formSearchProperty' => $formSearchProperty->createView()
         ]);
     }
 

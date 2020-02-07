@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Property;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -28,11 +29,21 @@ class PropertyRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->where('p.sold = false')
             ->getQuery()->getResult();
+
+        //On aurait pu faire ==> return $this->findVisibleQuery()->getQuery()->getResult();
+    }
+
+    /**
+     * @return Query
+     */
+    public function findAllVisibleQuery(): Query {
+        return $this->findVisibleQuery()->getQuery();
     }
 
     /**
      * @return Property[]
      */
+    //Cette methode permet de récupérer les 5 derniers resultats
     public function findLatest(){
         return $this->findVisibleQuery()
             ->setMaxResults(5)
@@ -42,8 +53,8 @@ class PropertyRepository extends ServiceEntityRepository
     /**
      * @return QueryBuilder
      */
-    //Cette methode me permet de retourner l'objet QueryBuilder
-    private function findVisibleQuery(){
+    //Cette methode me permet de retourner l'objet QueryBuilder avec tous les biens qui ne sont pas vendus
+    private function findVisibleQuery() {
         return $this->createQueryBuilder('p')
             ->where('p.sold = false');
     }
@@ -64,7 +75,18 @@ class PropertyRepository extends ServiceEntityRepository
         ;
     }
     */
-
+public function searchAvailableProperty($prix,$nbPiece){
+    return $this->createQueryBuilder('p')
+        ->andWhere('p.price >= :prix')
+        ->andWhere('p.bedrooms <= :nbPiece')
+        ->andwhere('p.sold = false')
+        ->setParameter('prix', $prix)
+        ->setParameter('nbPiece', $nbPiece)
+        ->orderBy('p.id', 'ASC')
+        ->getQuery()
+        ->getResult()
+        ;
+}
     /*
     public function findOneBySomeField($value): ?Property
     {
